@@ -3,14 +3,14 @@ name: Validate Package Definitions
 on:
   pull_request:
     paths:
-      - "packages/**.yaml"
+      - "packages/*"
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: rhysd/actionlint@v1
+      - uses: rhysd/actionlint@v1.7.7
       - name: Check YAML format
         run: yamllint packages/
       - name: Validate against schema
