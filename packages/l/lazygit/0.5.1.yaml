@@ -36,3 +36,17 @@ platforms:
       post_install: |
         @echo off
         echo lazygit installed successfully!
+
+  - os: darwin
+    arch: arm64
+    url: https://github.com/jesseduffield/lazygit/releases/download/v0.5.1/lazygit_0.5.1_Darwin_arm64.tar.gz
+    checksum: sha256:543266ea9d3611c9280302c538f569a792a9edaf83b11f3819324443b45de994
+    bin: lazygit
+    extract:
+      format: tar.gz
+      strip_components: 1
+    hooks:
+      pre_install: |
+        echo "Preparing to install lazygit on macOS ARM64"
+      post_install: |
+        echo "lazygit installed successfully on macOS ARM64!"
