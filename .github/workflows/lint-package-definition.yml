@@ -1,0 +1,20 @@
+name: Validate Package Definitions
+
+on:
+  pull_request:
+    paths:
+      - "packages/**.yaml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/actionlint@v1
+      - name: Check YAML format
+        run: yamllint packages/
+      - name: Validate against schema
+        uses: cardinalby/schema-validator-action@v1
+        with:
+          file: packages/
+          schema: schema/package.schema.yaml

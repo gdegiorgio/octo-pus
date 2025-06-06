@@ -1,0 +1,22 @@
+name: string # Package name, e.g., "bat"
+version: string # Package version, e.g., "0.24.0"
+description: string # Short description of the package
+homepage: string? # Optional project homepage URL
+license: string? # License identifier (e.g., "MIT")
+
+dependencies: # List of package names or system dependencies
+  - string # e.g., "curl", "openssl", "git", or another octo package name
+
+platforms:
+  - os: string # "linux", "windows", "darwin"
+    arch: string # e.g. "amd64", "arm64"
+    url: string # Download URL
+    checksum: string? # Optional SHA256 checksum
+    bin: string # Relative path to executable inside archive
+    extract:
+      format: string # e.g., "tar.gz", "zip"
+      strip_components: int?
+
+    hooks: # Optional hooks scoped per platform
+      pre_install: string? # Shell script or commands to run before install
+      post_install: string? # Shell script or commands to run after install
