@@ -40,4 +40,4 @@ jobs:
         uses: cardinalby/schema-validator-action@v1
         with:
           file: ${{ steps.changed_files.outputs.files }}
-          schema: schema/package.schema.yaml
+          schema: ./schema/package.schema.yaml
