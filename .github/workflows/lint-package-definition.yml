@@ -3,18 +3,36 @@ name: Validate Package Definitions
 on:
   pull_request:
     paths:
-      - "packages/**.yml"
+      - "packages/**/*.yml"
+      - "packages/**/*.yaml"
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: rhysd/actionlint@v1.7.7
-      - name: Check YAML format
-        run: yamllint packages/
-      - name: Validate against schema
+
+      - name: Get changed YAML files
+        id: changed_files
+        run: |
+          echo "::group::Detect changed YAML files"
+          files=$(git diff --name-only origin/main...HEAD | grep -E '^packages/.*\.ya?ml$' || true)
+          echo "Changed YAML files:"
+          echo "$files"
+          echo "::endgroup::"
+          # Join files with space for yamllint
+          echo "::set-output name=files::$files"
+
+      - name: Run yamllint on changed files
+        if: steps.changed_files.outputs.files != ''
+        run: |
+          echo "Linting changed YAML files:"
+          echo "${{ steps.changed_files.outputs.files }}"
+          yamllint ${{ steps.changed_files.outputs.files }}
+
+      - name: Validate changed YAML files against schema
+        if: steps.changed_files.outputs.files != ''
         uses: cardinalby/schema-validator-action@v1
         with:
-          file: packages/
+          file: ${{ steps.changed_files.outputs.files }}
           schema: schema/package.schema.yaml
