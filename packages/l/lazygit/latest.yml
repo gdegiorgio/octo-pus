@@ -1,0 +1,52 @@
+name: lazygit
+version: 0.52.0
+description: Simple terminal UI for git commands
+homepage: https://github.com/jesseduffield/lazygit
+license: MIT
+
+dependencies:
+  - git
+
+platforms:
+  - os: linux
+    arch: amd64
+    url: https://github.com/jesseduffield/lazygit/releases/download/v0.52.0/lazygit_0.52.0_Linux_x86_64.tar.gz
+    checksum: sha256:ca48006c41c94f389127fa67c29a866833c1aff9143eb5238939029d04404832
+    bin: lazygit
+    extract:
+      format: tar.gz
+      strip_components: 1
+    hooks:
+      pre_install: |
+        echo "Preparing to install lazygit on Linux"
+      post_install: |
+        echo "lazygit installed successfully!"
+
+  - os: windows
+    arch: amd64
+    url: https://github.com/jesseduffield/lazygit/releases/download/v0.52.0/lazygit_0.52.0_Windows_x86_64.zip
+    checksum: sha256:44735e93caae639e31a6b63b3400a05d2bfcfd167015d96f5bbe897d4f886f9f
+    bin: lazygit.exe
+    extract:
+      format: zip
+    hooks:
+      pre_install: |
+        @echo off
+        echo Preparing to install lazygit on Windows
+      post_install: |
+        @echo off
+        echo lazygit installed successfully!
+
+  - os: darwin
+    arch: arm64
+    url: https://github.com/jesseduffield/lazygit/releases/download/v0.52.0/lazygit_0.52.0_Darwin_arm64.tar.gz
+    checksum: sha256:67c155cf82ee788261306521e58a1bfefd38143d29bd8fd814b0a05cb36fba64
+    bin: lazygit
+    extract:
+      format: tar.gz
+      strip_components: 1
+    hooks:
+      pre_install: |
+        echo "Preparing to install lazygit on macOS ARM64"
+      post_install: |
+        echo "lazygit installed successfully on macOS ARM64!"
